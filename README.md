@@ -1,5 +1,4 @@
 # Remote-monitoring-and-controlling-IOT-devices
-# Build An IoT Smart Home Automation System Using Thingworx
 Dec 14th @ in5 - Hands-on Internet Of Things workshop with Etisalat Digital.  
 
 At this session, we’ll create a modular solution using  Etisalat's Thingworx IoT Platform to automate home controls like lights, locks and cameras over the internet. We’ll show you how to set up hardware attached to remote edge devices to be monitored and controlled over the internet in real time, sync and model device data with the cloud and build a web-based user interface to aggregate our functions.  
