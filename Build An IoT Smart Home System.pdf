@@ -1,28 +1,46 @@
-from flask import Flask, request, jsonify
+class SmartHomeSystem:
+    def __init__(self):
+        # Dummy database to store device states
+        self.device_states = {'light1': 'OFF', 'temperature_sensor': 25.0}
 
-app = Flask(__name__)
+    def get_device_state(self, device_id):
+        if device_id in self.device_states:
+            return {'device_id': device_id, 'state': self.device_states[device_id]}
+        else:
+            return {'error': 'Device not found'}
 
-# Dummy database to store device states
-device_states = {}
+    def update_device_state(self, device_id, new_state):
+        if device_id in self.device_states:
+            self.device_states[device_id] = new_state
+            return {'device_id': device_id, 'state': new_state}
+        else:
+            return {'error': 'Device not found'}
 
-# Endpoint to get the state of a device
-@app.route('/api/device/<device_id>', methods=['GET'])
-def get_device_state(device_id):
-    if device_id in device_states:
-        return jsonify({'device_id': device_id, 'state': device_states[device_id]})
+# Instantiate the SmartHomeSystem
+smart_home = SmartHomeSystem()
+
+# Console interface for testing
+while True:
+    print("Smart Home System")
+    print("1. Get Device State")
+    print("2. Update Device State")
+    print("3. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        device_id = input("Enter the device ID: ")
+        result = smart_home.get_device_state(device_id)
+        print(result)
+
+    elif choice == '2':
+        device_id = input("Enter the device ID: ")
+        new_state = input("Enter the new state: ")
+        result = smart_home.update_device_state(device_id, new_state)
+        print(result)
+
+    elif choice == '3':
+        break
+
     else:
-        return jsonify({'error': 'Device not found'}), 404
-
-# Endpoint to update the state of a device
-@app.route('/api/device/<device_id>', methods=['PUT'])
-def update_device_state(device_id):
-    if device_id in device_states:
-        data = request.get_json()
-        new_state = data.get('state')
-        device_states[device_id] = new_state
-        return jsonify({'device_id': device_id, 'state': new_state})
-    else:
-        return jsonify({'error': 'Device not found'}), 404
-
-if __name__ == '__main__':
-    app.run(debug=True)
+        print("Invalid choice. Please enter a valid option.")
